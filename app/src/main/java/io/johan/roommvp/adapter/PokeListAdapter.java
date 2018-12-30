@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import io.johan.roommvp.R;
+import io.johan.roommvp.activities.MainActivity;
 import io.johan.roommvp.data.entity.PokeList;
 import java.util.List;
 import timber.log.Timber;
@@ -38,9 +39,19 @@ public class PokeListAdapter extends RecyclerView.Adapter<PokeListAdapter.ViewHo
     viewHolder.itemView.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        Timber.d("onClick dat shet");
+        Timber.d("onClick dat shet position %s", viewHolder.getLayoutPosition());
+        if (context instanceof MainActivity) {
+          MainActivity activity = (MainActivity) context;
+          activity.openDetailActivity(poke, viewHolder.getLayoutPosition());
+        }
       }
     });
+  }
+
+  public void setItem(int positionItem, PokeList pokeList) {
+    Timber.d("setItem position " + positionItem + " object " + pokeList.getName());
+    lists.set(positionItem, pokeList);
+    notifyItemChanged(positionItem);
   }
 
   @Override

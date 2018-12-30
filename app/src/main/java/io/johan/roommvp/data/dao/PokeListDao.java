@@ -22,11 +22,11 @@ public interface PokeListDao {
   @Query("SELECT * FROM pokemon")
   List<PokeList> getAll();
 
-  //Show how many pokemon in pokemon database
+  //Show how many pokemon in pokemon table
   @Query("SELECT COUNT(*) FROM pokemon")
   int countPokemon();
 
-  //Search pokemon in pokemon database
+  //Search pokemon in pokemon table
   @Query("SELECT * FROM pokemon where name LIKE :pokeName")
   PokeList findByName(String pokeName);
 
@@ -34,6 +34,9 @@ public interface PokeListDao {
   @Insert
   void insertAll(List<PokeList> pokeLists);
 //  void insertAll(PokeList... pokeLists);
+
+  @Query("UPDATE pokemon SET name = :pokeName WHERE name = :beforeName")
+  void updateItem(String beforeName, String pokeName);
 
   //Insert on pokemon
   @Insert

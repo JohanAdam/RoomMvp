@@ -32,7 +32,6 @@ public class MainService implements NetworkResponseHandler {
       Timber.d("getList local because there is local list");
       presenter.onSuccess(listLocal);
     }
-
   }
 
   @Override
@@ -54,6 +53,13 @@ public class MainService implements NetworkResponseHandler {
     Timber.d("saveLists");
     AppDatabase appDatabase = AppDatabase.getAppDatabase(App.getContext());
     appDatabase.pokeListDao().insertAll(body);
+  }
+
+  public void updateItem(String oldName, String newName) {
+    Timber.d("updateItem oldName %s", oldName);
+    Timber.d("updateItem newName %s", newName);
+    AppDatabase appDatabase = AppDatabase.getAppDatabase(App.getContext());
+    appDatabase.pokeListDao().updateItem(oldName, newName);
   }
 
   @Override

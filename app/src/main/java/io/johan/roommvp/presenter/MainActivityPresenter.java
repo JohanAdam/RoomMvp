@@ -31,6 +31,13 @@ public class MainActivityPresenter implements Presenter {
   }
 
   @Override
+  public void update(int positionItem, PokeList oldName, PokeList newName) {
+    Timber.d("update oldName " + oldName + " newName " + newName);
+    mainService.updateItem(oldName.getName(), newName.getName());
+    view.setItemInAdapter(positionItem, newName);
+  }
+
+  @Override
   public void onSuccess(List<PokeList> pokeLists) {
     Timber.d("onSuccess pokeList %s", pokeLists.size());
     view.removeLoadingBar();
